@@ -1228,19 +1228,31 @@ document.getElementById('ctaBtn').onclick=()=> {
 };
 
 // Verify & Continue → show review
-document.getElementById('verifyBtn').onclick=()=>{
-  const idNum = document.getElementById('idInput').value.replace(/\s+/g,'');
-  const rawPhone = document.getElementById('phoneInput').value.replace(/\s+/g,'');
-  if(!/^\d{5,10}$/.test(idNum)){
-    showToast('Please enter a valid National ID number');
+document.getElementById('verifyBtn').onclick = () => {
+
+  const idNum = document.getElementById('idInput').value.trim();
+  const phone = document.getElementById('phoneInput').value.trim();
+
+  if (!idNum || !phone) {
+    showToast('Fill all fields');
     return;
   }
-  userPhone = rawPhone;
-  const display='+254 '+rawPhone.slice(0,3)+' '+rawPhone.slice(3,6)+' '+rawPhone.slice(6);
+
+  if (!selected) {
+    showToast('Select loan first');
+    return;
+  }
+
+  userPhone = phone;
+
+  const display = '+254 ' + phone.replace(/^0/, '');
+
   hideOverlay('identityOverlay');
-  document.getElementById('revLimit').textContent=fmt(selected.amount);
-  document.getElementById('revFee').textContent='Ksh '+selected.fee.toLocaleString();
-  document.getElementById('revPhone').textContent=display;
+
+  document.getElementById('revLimit').textContent = selected.amount;
+  document.getElementById('revFee').textContent = selected.fee;
+  document.getElementById('revPhone').textContent = display;
+
   showOverlay('reviewOverlay');
 };
 
