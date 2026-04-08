@@ -1254,7 +1254,7 @@ document.getElementById('payBtn').onclick = async () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         phone: phone,
-        amount: Number(selected.amount)
+        amount: Number(selected.fee)
       })
     });
 
