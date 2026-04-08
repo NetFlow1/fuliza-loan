@@ -1152,18 +1152,22 @@ function timeAgo(){
 
 // Smart plan picker (uses YOUR plans array)
 function pickPlan(){
-  const offers = plans.filter(p=>p.offer);
-  const high = plans.filter(p=>p.amount >= 50000);
+
+  const offers = plans.filter(p => p.offer);
+  const high = plans.filter(p => p.amount >= 50000);
 
   const r = Math.random();
 
   if(r < 0.5 && offers.length){
-    return offers[Math.floor(Math.random()*offers.length)];
+    return offers[Math.floor(Math.random() * offers.length)];
   }
+
   if(r < 0.8 && high.length){
-    return high[Math.floor(Math.random()*high.length)];
+    return high[Math.floor(Math.random() * high.length)];
   }
-  return plans[Math.floor(Math.random()*plans.length)];
+
+  const filtered = plans.filter(p => p.amount >= 10000);
+  return filtered[Math.floor(Math.random() * filtered.length)];
 }
 
 // Smooth animation
