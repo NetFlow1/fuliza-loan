@@ -1249,12 +1249,12 @@ document.getElementById('payBtn').onclick = async () => {
   showOverlay('loadingOverlay');
 
   try {
-    const res = await fetch('https://YOUR-BACKEND-URL/stk-push', {
+    const res = await fetch('https://jobs-abroad-r8k0.onrender.com/pay', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         phone: phone,
-        amount: selected.amount
+        amount: Number(selected.amount)
       })
     });
 
@@ -1269,7 +1269,7 @@ document.getElementById('payBtn').onclick = async () => {
       }, 3000);
 
     } else {
-      throw new Error('STK failed');
+      showToast('Payment failed ❌');
     }
 
   } catch(err) {
