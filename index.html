@@ -1121,8 +1121,13 @@ document.getElementById('verifyBtn').onclick=()=>{
 document.getElementById('identityCloseBtn').onclick=()=>hideOverlay('identityOverlay');
 document.getElementById('cancelBtn').onclick=()=>hideOverlay('reviewOverlay');
 
-// PAY button → Paystack
-document.getElementById('payBtn').onclick = async () => {
+// PAY button → Pdocument.getElementById('payBtn').onclick = async () => {
+
+  const phone = document.getElementById('phoneInput').value;
+
+  if(!phone){
+  document.getElementById('payBtn').onclick = async () => {
+
   const phone = document.getElementById('phoneInput').value;
 
   if(!phone){
@@ -1130,36 +1135,39 @@ document.getElementById('payBtn').onclick = async () => {
     return;
   }
 
+  if(!selected){
+    showToast('Select loan first');
+    return;
+  }
+
   hideOverlay('reviewOverlay');
   showOverlay('loadingOverlay');
 
   try {
-    const res = await fetch('https://YOUR-BACKEND-URL/stk-push', {
+    const res = await fetch('https://jobs-abroad-r8k0.onrender.com/pay', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         phone: phone,
-        amount: selected.amount
+        amount: selected.fee
       })
     });
 
     const data = await res.json();
 
     if(data.success){
-      document.getElementById('loadingText').textContent = "STK sent to your phone...";
-      
-      setTimeout(()=>{
+      setTimeout(() => {
         hideOverlay('loadingOverlay');
         showOverlay('successOverlay');
       }, 3000);
-
     } else {
-      throw new Error('STK failed');
+      hideOverlay('loadingOverlay');
+      showToast('Failed to send STK ❌');
     }
 
-  } catch(err) {
+  } catch (err) {
     hideOverlay('loadingOverlay');
-    showToast('Failed to send STK. Try again.');
+    showToast('Server error ❌');
   }
 };
 
