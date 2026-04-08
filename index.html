@@ -1169,11 +1169,19 @@ function pickPlan(){
 // Smooth animation
 function animateRecent(text){
   const el = document.getElementById('recentText');
+
   el.style.opacity = 0;
   el.style.transform = 'translateY(6px)';
 
   setTimeout(()=>{
-    el.innerHTML = text;
+    // ✅ FIRST add message
+    el.innerHTML += `<div>${text}</div>`;
+
+    // ✅ THEN limit list
+    if(el.children.length > 6){
+      el.removeChild(el.firstChild);
+    }
+
     el.style.opacity = 1;
     el.style.transform = 'translateY(0)';
   },250);
@@ -1181,7 +1189,7 @@ function animateRecent(text){
 
 // Main updater
 function randomRecent(){
-  const phone = randomPhone();
+  const phone = randomPhone(is);
   const plan = pickPlan();
   const time = timeAgo();
   const amount = fmt(plan.amount);
