@@ -1049,9 +1049,13 @@ document.getElementById('review-cancel').onclick = closePopup;
 document.getElementById('return-btn').onclick = closePopup;
 
 // Click outside popup to close
-document.getElementById('popup').onclick = e => {
-  if (e.target.id === 'popup') closePopup();
-};
+const popup = document.getElementById('popup');
+
+if (popup) {
+  popup.onclick = e => {
+    if (e.target.id === 'popup') closePopup();
+  };
+}
 </script>
 
 <script>
