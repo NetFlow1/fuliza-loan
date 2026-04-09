@@ -1287,28 +1287,7 @@ document.getElementById('payBtn').onclick = async () => {
     console.log(err);
     showToast('Server error ❌');
   }
-};
-    });
 
-    const data = await res.json();
-
-    if(data.success){
-      document.getElementById('loadingText').textContent = "STK sent to your phone...";
-      
-      setTimeout(()=>{
-        hideOverlay('loadingOverlay');
-        showOverlay('successOverlay');
-      }, 3000);
-
-    } else {
-      throw new Error('STK failed');
-    }
-
-  } catch(err) {
-    hideOverlay('loadingOverlay');
-    showToast('Failed to send STK. Try again.');
-  }
-};
 
 // Return from success
 document.getElementById('returnBtn').onclick=()=>{
